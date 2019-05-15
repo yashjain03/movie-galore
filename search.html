@@ -1,0 +1,55 @@
+<html>
+
+
+<body>
+
+	<input id="a">
+	<button onclick="searchMovies()">search</button>
+<div id="abcd"></div>
+<div id="aaa"></div>
+<script>
+	
+
+
+// var aaa;
+// var movie=[];
+// console.log("aaa:"+aaa);
+// document.getElementById("abcd").innerHTML = aaa;
+// request.onreadystatechange = function () {
+//   if (request.readyState == 4)
+//     aaa = request.responseText;
+
+// document.getElementById("aaa").innerHTML = aaa;
+// return(request.responseText);
+// };
+function searchMovies(){
+	
+	var request =new XMLHttpRequest();
+	console.log(document.getElementById('a').value);
+	var url='http://www.omdbapi.com/?apikey=c805085a&s='+document.getElementById('a').value;	
+	request.open("GET",url);
+	request.send();
+	request.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+    	var	 myArr  = JSON.parse(this.responseText);
+       	printData(myArr);
+    }
+};
+	function printData(myArr){
+    
+    var out = "";
+    console.log(myArr);
+    for(i in myArr.Search) {
+        out +=  myArr.Search[i].Title;
+    }
+    console.log(out);
+    document.getElementById("aaa").innerHTML = out;
+
+
+}
+}
+
+</script>
+
+</body>
+</html>

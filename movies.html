@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+	.logo_button{
+		border: 2px solid black;
+		border-color: black;
+		background-color: transparent;
+		margin-left: 8%;
+		margin-top: 25px;
+
+	}
+	.logo{
+		margin-top: 0;
+		margin-bottom: 0;
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+	.menuclass{
+		display: flex;
+		flex-flow: column;
+		float: right;
+		margin-right:8%;
+		margin-top: 25px;
+	}
+	.menu {
+		width: 35px;
+		height: 3px;
+		margin-top: 4px;
+		margin-bottom: 4px;
+		background-color: black;
+
+		float: right;
+
+	}
+
+	.container{
+		margin-left: 8%;
+		margin-right: 8%;
+		min-height: 500px;
+
+	}
+	.movie{
+		border: none;
+		background-color: blue;
+		color: white;
+	  	padding: 10px 12px;
+	  	font-size: 12px;
+	  	border-radius: 3px;
+	  	cursor: pointer;
+	}
+	.movie:hover {
+		background: #1212FF;
+		/*4C93FD*/
+	}
+	.movie:focus{
+    background:#1D1DC6;
+}
+	.movie_list{
+		display: flex;
+		flex-flow: wrap;
+	}
+	.movie_box{
+		margin: auto;
+		padding: 20px;
+		padding-bottom: 40px;
+
+		
+	}
+	.img_button{
+		position: relative;
+
+	}
+	.button{
+		padding: 8px 18px;
+	}
+
+
+	.movie_img{
+		width: 180px;
+		height: 240px;
+		opacity: 1;
+		display: block;
+
+		transition: .5s ease;
+		backface-visibility: hidden;
+
+	}
+	.button_pos{
+		transition: .5s ease;
+		opacity: 0;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		-ms-transform: translate(-50%, -50%);
+		text-align: center;
+	}
+	.img_button:hover .movie_img{
+		opacity: 0.3;
+		filter: alpha(opacity=30);
+
+	}
+	.img_button:hover .button_pos{
+		opacity: 1;
+		filter: alpha(opacity=100);
+
+	}
+
+	.movie_img #year{
+		float:right;
+	}
+
+
+	.footer{
+		padding:3px;
+		margin: 0px;
+		margin-left: 8%;
+	}
+	.movie_result{
+		color:#3f3f3f;
+		width: 148px;
+		height: 0px;
+		margin-top: 0px;
+		margin-bottom:0px;
+		font-family:georgia,garamond,serif;
+	}
+</style>
+<title>Movies</title>
+</head>
+<body onload="search()">
+	
+	
+	<div id="try"></div>
+	<button class="logo_button">
+		<h1 class=logo>Logo</h1>
+	</button>
+	<div class=menuclass>
+		<div class="menu"> </div>
+		<div class="menu"> </div>
+		<div class="menu"> </div>
+	</div>
+	<hr style="margin:2px;margin-top:20px;margin-bottom: 30px;"> 
+
+	<div class="container"> <!-- movie container -->
+		<button onclick="mymovie()"class="movie">My Movie Library</button>
+		<button onclick="search()"  class="movie">Search and Add new Movies</button>
+		
+		<select id="filter" class="movie" onclick="sort()"style="float: right; padding: 4px;">
+			<option value="filter">Sort by</option>
+			<option value="Title">Title</option>
+			<option value="OldtoNew">Year:Old to New</option>
+			<option value="NewtoOld">Year:New to Old</option>
+		</select>
+		<h4 style="display: none;">Search:<input id = 'textmsg' name = 'q' placeholder="Enter Message" style="  border:2px solid #ccc; border-radius:2px; resize: none; "></input></h4>
+		
+		<!-- movie list -->
+		<div id="all_movies">
+			<h3>Search:
+			<input id = 'Movie_name' placeholder="Enter Movie Name" style="border:none;  border:2px solid #ccc; border-radius:0; resize: none; ">
+			<button class="movie" onclick="searchMovies()" style="padding: 4px;">Search </button></h3>
+			<hr style="margin:2px;margin-top:5px;margin-bottom: 30px;"> 
+			
+			<div class="movie_list" id="movie_list">
+			<!-- all movie list -->
+			<div id="0" class="movie_box"><div class="img_button"><img class="movie_img" src="./Movies11_files/MV5BYThjYzcyYzItNTVjNy00NDk0LTgwMWQtYjMwNmNlNWJhMzMyXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"><div class="button_pos"><button onclick="remove_my_movie(0)" class="movie button">Remove</button></div></div><div class="movie_result">Batman v Superman: Dawn of Justice</div><div class="movie_result" style="float:right;width:35px;">2016</div></div><div id="1" class="movie_box"><div class="img_button"><img class="movie_img" src="./Movies11_files/MV5BNzY2ZDQ2MTctYzlhOC00MWJhLTgxMmItMDgzNDQwMDdhOWI2XkEyXkFqcGdeQXVyNjc1NTYyMjg@._V1_SX300.jpg"><div class="button_pos"><button onclick="remove_my_movie(1)" class="movie button">Remove</button></div></div><div class="movie_result">Superman Returns</div><div class="movie_result" style="float:right;width:35px;">2006</div></div><div id="2" class="movie_box"><div class="img_button"><img class="movie_img" src="./Movies11_files/MV5BNDg2NjhlZGItMGQ2Ny00NTMwLWExMmItMmVmNmNlYTA3ZTlkXkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_SX300.jpg"><div class="button_pos"><button onclick="remove_my_movie(2)" class="movie button">Remove</button></div></div><div class="movie_result">Student of the Year 2</div><div class="movie_result" style="float:right;width:35px;">2019</div></div><div id="3" class="movie_box"><div class="img_button"><img class="movie_img" src="./Movies11_files/MV5BYTg4NWEyMjMtNTM2MS00M2I4LWFjOTQtMDRjNjc0ODI3NmY4XkEyXkFqcGdeQXVyOTc1MDE5NzI@._V1_SX300.jpg"><div class="button_pos"><button onclick="remove_my_movie(3)" class="movie button">Remove</button></div></div><div class="movie_result">Kalank</div><div class="movie_result" style="float:right;width:35px;">2019</div></div><div id="4" class="movie_box"><div class="img_button"><img class="movie_img" src="./Movies11_files/MV5BNTk4ODQ1MzgzNl5BMl5BanBnXkFtZTgwMTMyMzM4MTI@._V1_SX300.jpg"><div class="button_pos"><button onclick="remove_my_movie(4)" class="movie button">Remove</button></div></div><div class="movie_result">Spider-Man: Homecoming</div><div class="movie_result" style="float:right;width:35px;">2017</div></div><div id="5" class="movie_box"><div class="img_button"><img class="movie_img" src="./Movies11_files/MV5BMjAxNTg2MDkyN15BMl5BanBnXkFtZTgwNzA3NzY1MjE@._V1_SX300.jpg"><div class="button_pos"><button onclick="remove_my_movie(5)" class="movie button">Remove</button></div></div><div class="movie_result">Seventh Son</div><div class="movie_result" style="float:right;width:35px;">2014</div></div><div id="6" class="movie_box"><div class="img_button"><img class="movie_img" src="./Movies11_files/MV5BMTc4MzIxNTYwNl5BMl5BanBnXkFtZTcwNzE4MjE0NA@@._V1_SX300.jpg"><div class="button_pos"><button onclick="remove_my_movie(6)" class="movie button">Remove</button></div></div><div class="movie_result">Hall Pass</div><div class="movie_result" style="float:right;width:35px;">2011</div></div><div id="7" class="movie_box"><div class="img_button"><img class="movie_img" src="./Movies11_files/MV5BMzMwMTAwODczN15BMl5BanBnXkFtZTgwMDk2NDA4MTE@._V1_SX300.jpg"><div class="button_pos"><button onclick="remove_my_movie(7)" class="movie button">Remove</button></div></div><div class="movie_result">How to Train Your Dragon 2</div><div class="movie_result" style="float:right;width:35px;">2014</div></div><div id="8" class="movie_box"><div class="img_button"><img class="movie_img" src="./Movies11_files/MV5BMTM4NjY1MDQwMl5BMl5BanBnXkFtZTcwNTI3Njg3NA@@._V1_SX300.jpg"><div class="button_pos"><button onclick="remove_my_movie(8)" class="movie button">Remove</button></div></div><div class="movie_result">Midnight in Paris</div><div class="movie_result" style="float:right;width:35px;">2011</div></div><div id="9" class="movie_box"><div class="img_button"><img class="movie_img" src="./Movies11_files/MV5BMTM3NTg2NDQzOF5BMl5BanBnXkFtZTcwNjc2NzQzOQ@@._V1_SX300.jpg"><div class="button_pos"><button onclick="remove_my_movie(9)" class="movie button">Remove</button></div></div><div class="movie_result">Fast &amp; Furious 6</div><div class="movie_result" style="float:right;width:35px;">2013</div></div><div id="10" class="movie_box"><div class="img_button"><img class="movie_img" src="./Movies11_files/MV5BNzU3NDg4NTAyNV5BMl5BanBnXkFtZTcwOTg2ODg1Mg@@._V1_SX300.jpg"><div class="button_pos"><button onclick="remove_my_movie(10)" class="movie button">Remove</button></div></div><div class="movie_result">Harry Potter and the Half-Blood Prince</div><div class="movie_result" style="float:right;width:35px;">2009</div></div><div id="11" class="movie_box"><div class="img_button"><img class="movie_img" src="./Movies11_files/MV5BMTY1NDc3MzgxNV5BMl5BanBnXkFtZTgwNDc3MTQwNjM@._V1_SX300.jpg"><div class="button_pos"><button onclick="remove_my_movie(11)" class="movie button">Remove</button></div></div><div class="movie_result">Like Father</div><div class="movie_result" style="float:right;width:35px;">2018</div></div><div id="12" class="movie_box"><div class="img_button"><img class="movie_img" src="./Movies11_files/MV5BMTE0YWFmOTMtYTU2ZS00ZTIxLWE3OTEtYTNiYzBkZjViZThiXkEyXkFqcGdeQXVyODMzMzQ4OTI@._V1_SX300.jpg"><div class="button_pos"><button onclick="remove_my_movie(12)" class="movie button">Remove</button></div></div><div class="movie_result">Captain Marvel</div><div class="movie_result" style="float:right;width:35px;">2019</div></div><div id="13" class="movie_box"><div class="img_button"><img class="movie_img" src="./Movies11_files/MV5BMDliOTIzNmUtOTllOC00NDU3LWFiNjYtMGM0NDc1YTMxNjYxXkEyXkFqcGdeQXVyNTM3NzExMDQ@._V1_SX300.jpg"><div class="button_pos"><button onclick="remove_my_movie(13)" class="movie button">Remove</button></div></div><div class="movie_result">Big Hero 6</div><div class="movie_result" style="float:right;width:35px;">2014</div></div><div id="14" class="movie_box"><div class="img_button"><img class="movie_img" src="./Movies11_files/MV5BMjE5MzcyNjk1M15BMl5BanBnXkFtZTcwMjQ4MjcxOQ@@._V1_SX300.jpg"><div class="button_pos"><button onclick="remove_my_movie(14)" class="movie button">Remove</button></div></div><div class="movie_result">Iron Man 3</div><div class="movie_result" style="float:right;width:35px;">2013</div></div><div id="15" class="movie_box"><div class="img_button"><img class="movie_img" src="./Movies11_files/MV5BOTE0MjQ1NDU3OV5BMl5BanBnXkFtZTgwNTI4MTgwNzM@._V1_SX300.jpg"><div class="button_pos"><button onclick="remove_my_movie(15)" class="movie button">Remove</button></div></div><div class="movie_result">Sex Education</div><div class="movie_result" style="float:right;width:35px;">2019–</div></div><div id="16" class="movie_box"><div class="img_button"><img class="movie_img" src="./Movies11_files/MV5BOTgxMDQwMDk0OF5BMl5BanBnXkFtZTgwNjU5OTg2NDE@._V1_SX300.jpg"><div class="button_pos"><button onclick="remove_my_movie(16)" class="movie button">Remove</button></div></div><div class="movie_result">Inside Out</div><div class="movie_result" style="float:right;width:35px;">2015</div></div><div id="17" class="movie_box"><div class="img_button"><img class="movie_img" src="./Movies11_files/MV5BMzc1Njc2NDc3NV5BMl5BanBnXkFtZTYwODYyNzI3._V1_SX300.jpg"><div class="button_pos"><button onclick="remove_my_movie(17)" class="movie button">Remove</button></div></div><div class="movie_result">The Amityville Horror</div><div class="movie_result" style="float:right;width:35px;">2005</div></div><div id="18" class="movie_box"><div class="img_button"><img class="movie_img" src="./Movies11_files/MV5BMTc3NTUzNTI4MV5BMl5BanBnXkFtZTgwNjU0NjU5NzE@._V1_SX300.jpg"><div class="button_pos"><button onclick="remove_my_movie(18)" class="movie button">Remove</button></div></div><div class="movie_result">The Jungle Book</div><div class="movie_result" style="float:right;width:35px;">2016</div></div><div id="19" class="movie_box"><div class="img_button"><img class="movie_img" src="./Movies11_files/MV5BZDkzMTQ1YTMtMWY4Ny00MzExLTkzYzEtNzZhOTczNzU2NTU1XkEyXkFqcGdeQXVyODY3NjMyMDU@._V1_SX300.jpg"><div class="button_pos"><button onclick="remove_my_movie(19)" class="movie button">Remove</button></div></div><div class="movie_result">Gully Boy</div><div class="movie_result" style="float:right;width:35px;">2019</div></div><div id="20" class="movie_box"><div class="img_button"><img class="movie_img" src="./Movies11_files/MV5BMTg1MTY2MjYzNV5BMl5BanBnXkFtZTgwMTc4NTMwNDI@._V1_SX300.jpg"><div class="button_pos"><button onclick="remove_my_movie(20)" class="movie button">Remove</button></div></div><div class="movie_result">Black Panther</div><div class="movie_result" style="float:right;width:35px;">2018</div></div><div id="21" class="movie_box"><div class="img_button"><img class="movie_img" src="./Movies11_files/MV5BMjA5NzUwODExM15BMl5BanBnXkFtZTgwNjM0MzE4NjE@._V1_SX300.jpg"><div class="button_pos"><button onclick="remove_my_movie(21)" class="movie button">Remove</button></div></div><div class="movie_result">In the Heart of the Sea</div><div class="movie_result" style="float:right;width:35px;">2015</div></div><div id="22" class="movie_box"><div class="img_button"><img class="movie_img" src="./Movies11_files/MV5BYTRiNjg4M2ItZDg4OC00NDIxLWE0NWItYzgyMDU2NDhmNWVmXkEyXkFqcGdeQXVyMTkzOTcxOTg@._V1_SX300.jpg"><div class="button_pos"><button onclick="remove_my_movie(22)" class="movie button">Remove</button></div></div><div class="movie_result">Sui Dhaaga: Made in India</div><div class="movie_result" style="float:right;width:35px;">2018</div></div><div id="23" class="movie_box"><div class="img_button"><img class="movie_img" src="./Movies11_files/MV5BNzhiZjY3YTUtZWQxMS00ZTQ5LWEzNWQtY2UxYWQ0YTE3NGYxXkEyXkFqcGdeQXVyMTExNDQ2MTI@._V1_SX300.jpg"><div class="button_pos"><button onclick="remove_my_movie(23)" class="movie button">Remove</button></div></div><div class="movie_result">24: India</div><div class="movie_result" style="float:right;width:35px;">2013–</div></div><div id="24" class="movie_box"><div class="img_button"><img class="movie_img" src="./Movies11_files/MV5BNGYyZGM5MGMtYTY2Ni00M2Y1LWIzNjQtYWUzM2VlNGVhMDNhXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg"><div class="button_pos"><button onclick="remove_my_movie(24)" class="movie button">Remove</button></div></div><div class="movie_result">Pirates of the Caribbean: The Curse of the Black Pearl</div><div class="movie_result" style="float:right;width:35px;">2003</div></div></div>
+			</div>
+
+		</div>
+
+		<div id="my_movies" >
+			<h3>My Library</h3>
+			<hr style="margin:2px;margin-top:5px;margin-bottom: 30px;"> 
+			<div class="movie_list" id="mylist">	<!-- my movie list -->		</div>
+		</div>
+	</div>
+	<hr style="margin:2px;margin-top:35px;margin-bottom: 15px;">
+	<h5 class="footer">PRIVACY POLICY  |  TERM & CONDITION </h5>
+	<h6 class="footer"><i>2018 © XYZ Company. All rights reserved</i> </h6> 
+	<!-- <a itemprop="sameAs" href=# class="icon-twitter" title="Twitter"><span>Twitter</span></a> -->
+
+</body>
+
+
+
+<script type="text/javascript">
+
+	var movies=[];
+	var mylist=[];
+	var oldsort;
+	function searchMovies(){
+		
+		var request =new XMLHttpRequest();
+		// console.log(document.getElementById('a').value);
+		var url='http://www.omdbapi.com/?apikey=c805085a&s='+document.getElementById('Movie_name').value;	
+		console.log(url);
+		request.open("GET",url);
+		request.send();
+		request.onreadystatechange = function() {
+	    if (this.readyState == 4 && this.status == 200) {
+	    	movies  = JSON.parse(this.responseText);
+	       	display_search();
+	       	console.log(movies);
+	    }
+	};
+	
+	}
+	function display_search(){
+		
+
+				sort_list();
+				var allmovies='';
+				for(i in movies.Search){
+					
+					
+					allmovies=allmovies+'<div id="'+i+'" class="movie_box"><div class="img_button"><img class="movie_img" src="'+movies.Search[i].Poster+'"><div class="button_pos"><button onclick="movielist('+i+')"class = "movie button" >Add</button></div></div><div class="movie_result" >'+movies.Search[i].Title+'</div><div class="movie_result"style="float:right;width:35px;">'+movies.Search[i].Year+'</div></div>';
+				}
+				console.log(allmovies);
+				document.getElementById("movie_list").innerHTML = allmovies;
+
+
+				mymovies=''
+				for(i in mylist)
+				{		
+					mymovies=mymovies+'<div id="'+i+'" class="movie_box"><div class="img_button"><img class="movie_img" src="'+mylist[i].Poster+'"><div class="button_pos"><button onclick="remove_my_movie('+i+')"class = "movie button" >Remove</button></div></div><div class="movie_result">'+mylist[i].Title+'</div><div class="movie_result" style="float:right;width:35px;">'+mylist[i].Year+'</div></div>';
+				}
+				document.getElementById("mylist").innerHTML = mymovies;
+	}		
+
+	function movielist(i) {
+		for(j in mylist)
+			{
+				if(mylist[j].imdbID.localeCompare(movies.Search[i].imdbID)==0)
+				{
+					alert("Already in library");
+					return 0;
+				}
+
+			}
+		mylist.push(movies.Search[i]);
+		alert("Movie Added to library");
+		
+	}
+	function search()
+	{
+		document.getElementById("my_movies").style.display = "none";
+		document.getElementById("all_movies").style.display = "block";
+
+	}
+	function mymovie() {
+	 	document.getElementById("my_movies").style.display = "block";
+		document.getElementById("all_movies").style.display = "none";
+		sort_list();
+		display_search();
+	 	// body...
+	} 
+
+	function remove_my_movie(i){
+
+		delete mylist[i];
+		alert("Movie removed form library");
+		mymovie();
+		return 0;
+			 	
+
+	 }
+	
+	function sort(){
+		if(document.getElementById("filter").value.localeCompare(oldsort)!=0)
+		{
+			display_search();
+		}
+		oldsort=document.getElementById("filter").value;
+	}
+
+	var sortByProperty = function (property) {
+	    return function (x, y) {
+	        return ((x[property] === y[property]) ? 0 : ((x[property] > y[property]) ? 1 : -1));
+	    };
+	};
+
+
+	function sort_list(){
+		if(document.getElementById("filter").value=='Title')
+			{
+				title_sort();
+				
+			}	
+		else if(document.getElementById("filter").value=='OldtoNew')
+			{
+				yearsort_ass();
+				
+			}
+		else if(document.getElementById("filter").value=="NewtoOld")
+			{
+				yearsort_dec();
+				
+			}	
+	}
+	function title_sort(){
+	 	movies.Search.sort(sortByProperty('Title'));
+		mylist.sort(sortByProperty('Title'));	
+	}
+	function yearsort_ass(){
+	 	movies.Search.sort(sortByProperty('Year'));
+		mylist.sort(sortByProperty('Year'));	
+	}
+	function yearsort_dec(){
+	 	movies.Search.sort(sortByProperty('Year'));
+		mylist.sort(sortByProperty('Year'));
+		movies.Search.reverse();
+		mylist.reverse();
+	}
+
+</script>
+</html>
